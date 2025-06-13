@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Courses</title>
+	<style>
+		body {
+			background-color: #F5F5DC;
+			height: 100vh;
+			margin: 0;
+			font-family: Arial, sans-serif;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.main-container {
+			background-color: white;
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			width: 80%;
+			max-width: 800px;
+		}
+
+		h2 {
+			text-align: center;
+			color: #333;
+			margin-bottom: 20px;
+		}
+
+		a {
+			text-decoration: none;
+			color: #007bff;
+			font-weight: bold;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 15px;
+		}
+
+		table, th, td {
+			border: 1px solid #ddd;
+		}
+
+		th, td {
+			padding: 12px;
+			text-align: left;
+		}
+
+		th {
+			background-color: #f2f2f2;
+			color: #333;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f9f9f9;
+		}
+
+		tr:hover {
+			background-color: #f1f1f1;
+		}
+
+		.actions a {
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="main-container">
+		<h2>All Courses</h2>
+		<a href="/course/new">Add New Course</a>
+		<table>
+		    <tr>
+		        <th>ID</th>
+		        <th>Name</th>
+		        <th>Duration</th>
+		        <th>Instructor</th>
+		        <th>Actions</th>
+		    </tr>
+		    <tr th:each="c : ${courses}">
+		        <td th:text="${c.id}"></td>
+		        <td th:text="${c.name}"></td>
+		        <td th:text="${c.duration}"></td>
+		        <td th:text="${c.instructor}"></td>
+		        <td class="actions">
+		            <a th:href="@{'/course/' + ${c.id}}">Edit</a>
+		            <a th:href="@{'/course/delete/' + ${c.id}}">Delete</a>
+		        </td>
+		    </tr>
+		</table>
+	</div>
+</body>
+</html>
