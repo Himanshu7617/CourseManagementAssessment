@@ -20,13 +20,7 @@ public class CourseController {
 
 
 
-    @GetMapping("/courses")
-    public String showCourses(Model model) {
-        List<Course> courses = service.getAllCourses(); // Or however you're fetching them
-        model.addAttribute("courses", courses);
-        return "courses"; // matches courses.html
-    }
-
+ 
     @GetMapping("/course/{id}")
     public String getCourse(@PathVariable Long id, Model model) {
         model.addAttribute("course", service.getCourseById(id).orElse(null));
@@ -58,6 +52,18 @@ public class CourseController {
         return "redirect:/courses";
     }
 
+    @GetMapping("/courses")
+    public String viewCourses(@RequestParam(required = false) String instructor, Model model) {
+        List<Course> list;
+        if (instructor != null && !instructor.isEmpty()) {
+            list = service.getCoursesByInstructor(instructor);
+        } else {
+            list = service.getAllCourses();  // or repo.findAll()
+        }
+        model.addAttribute("courses", list);
+        model.addAttribute("instructorFilter", instructor);
+        return "courses";
+    }
     @GetMapping("/course/delete/{id}")
     public String deleteCourse(@PathVariable Long id) {
         service.deleteCourse(id);

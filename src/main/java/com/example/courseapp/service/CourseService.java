@@ -27,6 +27,9 @@ public class CourseService {
     public List<Course> getByInstructor(String name) {
         return repo.findByInstructor(name);
     }
+    public List<Course> getCoursesByInstructor(String instructor) {
+        return repo.findByInstructor(instructor);
+    }
 
     public void saveCourse(Course course) {
         repo.save(course);
